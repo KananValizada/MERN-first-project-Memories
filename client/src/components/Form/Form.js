@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import { createPost, updatePost } from "../../actions/posts";
 import FileBase from "react-file-base64";
 import useStyles from "./styles";
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -17,7 +17,12 @@ const Form = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData));
+
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
   };
   const clear = () => {};
 
@@ -70,8 +75,8 @@ const Form = () => {
           <FileBase
             type="file"
             multiple={false}
-            onDone={(base64) =>
-              setPostData({ ...postData, selectedFile: JSON.stringify(base64) })
+            onDone={({ base64 }) =>
+              setPostData({ ...postData, selectedFile: base64 })
             }
           />
         </div>
@@ -87,8 +92,8 @@ const Form = () => {
         </Button>
         <Button
           variant="contained"
-          color="primary"
-          size="secondary"
+          color="secondary"
+          size="medium"
           onClick={clear}
           fullWidth
         >
