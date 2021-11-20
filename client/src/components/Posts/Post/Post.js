@@ -58,7 +58,12 @@ const Post = ({ post, setCurrentId }) => {
         {post.title}
       </Typography>
       <CardContent>
-        <Typography variant="h5" color="textSecondary" gutterBottom>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          color="textSecondary"
+        >
           {post.message}
         </Typography>
       </CardContent>
@@ -71,8 +76,7 @@ const Post = ({ post, setCurrentId }) => {
           }}
         >
           <ThumbUpAltIcon fontSize="small" />
-          like Count
-          {` ${post.likeCount}`}
+          {` like ${post.likeCount}`}
         </Button>
         <Button
           size="small"
