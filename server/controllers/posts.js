@@ -31,9 +31,43 @@ export const updatePost = async (req, res) => {
     return res.status(404).save("Invalid post id");
   }
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
-    new: true,
-  });
+  const updatedPost = await PostMessage.findByIdAndUpdate(
+    _id,
+    { ...post, _id },
+    {
+      new: true,
+    }
+  );
 
   res.json(updatedPost);
+};
+
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).save("Invalid post id");
+  }
+
+  await PostMessage.findByIdAndRemove(id);
+  res.json({ message: "Post deleted succesfully" });
+};
+
+export const likePost = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).save("Invalid post id");
+  }
+
+  const post = await PostMessage.findById(id);
+  const postUpdated = await PostMessage.findByIdAndUpdate(
+    id,
+    {
+      likeCount: post.likeCount + 1,
+    },
+    { new: true }
+  );
+  res.json(postUpdated);
 };
