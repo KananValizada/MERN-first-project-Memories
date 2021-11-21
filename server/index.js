@@ -12,6 +12,10 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/posts", postRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello from Kanan");
+});
+
 // const CONNECTION_URL =
 //   "mongodb+srv://nerbeh:nerbeh123@cluster0.wxra0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
