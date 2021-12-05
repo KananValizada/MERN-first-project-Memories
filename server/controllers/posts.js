@@ -1,4 +1,3 @@
-import { json } from "body-parser";
 import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
 
