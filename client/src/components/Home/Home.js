@@ -8,7 +8,7 @@ import {
   TextField,
   Button,
 } from "@material-ui/core";
-import { getPosts, getPostBySearch } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../pagination";
@@ -34,7 +34,7 @@ const Home = () => {
 
   const searchPosts = () => {
     if (search.trim() || tags) {
-      dispatch(getPostBySearch({ search, tags: tags.join(",") }));
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
       navigate(
         `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
       );
